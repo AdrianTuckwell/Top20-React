@@ -1,13 +1,13 @@
 var React = require('react');
 var SongList = require('../components/SongList.jsx');
-
 var Top20Container = React.createClass({
-
+// -------------------------------------------------------------------
   getInitialState: function() {
     console.log("Top20Container - getInitialState");
     return { songs:[]};
   },
 
+// -------------------------------------------------------------------
   componentDidMount: function() {
     console.log("Top20Container - componentDidMount");
     var url = "https://itunes.apple.com/gb/rss/topsongs/limit=20/json";
@@ -20,6 +20,7 @@ var Top20Container = React.createClass({
     request.send();
   },
 
+// --------------------------------------------------------------------
   render: function() {
     return(
       <div>
@@ -28,7 +29,6 @@ var Top20Container = React.createClass({
       </div>
     );
   }
-
-  });
+});
 
 module.exports = Top20Container;

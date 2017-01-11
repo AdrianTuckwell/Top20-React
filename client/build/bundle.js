@@ -19756,16 +19756,16 @@
 	
 	var React = __webpack_require__(1);
 	var SongList = __webpack_require__(160);
-	
 	var Top20Container = React.createClass({
 	  displayName: 'Top20Container',
 	
-	
+	  // -------------------------------------------------------------------
 	  getInitialState: function getInitialState() {
 	    console.log("Top20Container - getInitialState");
 	    return { songs: [] };
 	  },
 	
+	  // -------------------------------------------------------------------
 	  componentDidMount: function componentDidMount() {
 	    console.log("Top20Container - componentDidMount");
 	    var url = "https://itunes.apple.com/gb/rss/topsongs/limit=20/json";
@@ -19778,6 +19778,7 @@
 	    request.send();
 	  },
 	
+	  // --------------------------------------------------------------------
 	  render: function render() {
 	    return React.createElement(
 	      'div',
@@ -19790,7 +19791,6 @@
 	      React.createElement(SongList, { songs: this.state.songs })
 	    );
 	  }
-	
 	});
 	
 	module.exports = Top20Container;
@@ -19803,24 +19803,20 @@
 	
 	var React = __webpack_require__(1);
 	var Song = __webpack_require__(161);
-	
 	var SongList = React.createClass({
 	  displayName: 'SongList',
 	
-	
+	  // ---------------------------------------------------------
 	  getInitialState: function getInitialState() {
 	    return { selectedIndex: undefined };
 	  },
 	
+	  // ---------------------------------------------------------
 	  render: function render() {
-	    console.log(this.props.songs);
-	
 	    var songs = this.props.songs.map(function (song, index) {
 	      return React.createElement(Song, {
 	        key: index,
-	        title: song['im:name'].label
-	
-	        // title={songs.title.label}
+	        title: song['title'].label
 	      });
 	    });
 	    // Displaying the contents of the Array 
@@ -19831,8 +19827,6 @@
 	      songs,
 	      ' '
 	    );
-	
-	    // return <a>here</a>
 	  }
 	});
 	
@@ -19845,30 +19839,13 @@
 	'use strict';
 	
 	var React = __webpack_require__(1);
-	var Song = React.createClass({
-	  displayName: 'Song',
-	
-	
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      { className: 'song' },
-	      React.createElement(
-	        'a',
-	        { className: 'song-name' },
-	        ' ',
-	        this.props.name,
-	        ' '
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        this.props.children
-	      )
-	    );
-	  }
-	
-	});
+	var Song = function Song(props) {
+	  return React.createElement(
+	    'li',
+	    null,
+	    props.title
+	  );
+	};
 	
 	module.exports = Song;
 
