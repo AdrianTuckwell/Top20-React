@@ -19752,12 +19752,13 @@
 /* 159 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	var React = __webpack_require__(1);
+	var SongList = __webpack_require__(160);
 	
 	var Top20Container = React.createClass({
-	  displayName: "Top20Container",
+	  displayName: 'Top20Container',
 	
 	
 	  getInitialState: function getInitialState() {
@@ -19772,22 +19773,104 @@
 	    request.open('GET', url);
 	    request.onload = function () {
 	      var data = JSON.parse(request.responseText);
-	      this.setState({ songs: data });
+	      this.setState({ songs: data.feed.entry });
 	    }.bind(this);
 	    request.send();
 	  },
 	
 	  render: function render() {
 	    return React.createElement(
-	      "h2",
+	      'div',
 	      null,
-	      "Top 20"
+	      React.createElement(
+	        'h2',
+	        null,
+	        'Top 20'
+	      ),
+	      React.createElement(SongList, { songs: this.state.songs })
 	    );
 	  }
 	
 	});
 	
 	module.exports = Top20Container;
+
+/***/ },
+/* 160 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var Song = __webpack_require__(161);
+	
+	var SongList = React.createClass({
+	  displayName: 'SongList',
+	
+	
+	  getInitialState: function getInitialState() {
+	    return { selectedIndex: undefined };
+	  },
+	
+	  render: function render() {
+	    console.log(this.props.songs);
+	
+	    var songs = this.props.songs.map(function (song, index) {
+	      return React.createElement(Song, {
+	        key: index,
+	        title: song['im:name'].label
+	
+	        // title={songs.title.label}
+	      });
+	    });
+	    // Displaying the contents of the Array 
+	    return React.createElement(
+	      'div',
+	      { className: 'song-list' },
+	      ' ',
+	      songs,
+	      ' '
+	    );
+	
+	    // return <a>here</a>
+	  }
+	});
+	
+	module.exports = SongList;
+
+/***/ },
+/* 161 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var Song = React.createClass({
+	  displayName: 'Song',
+	
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'song' },
+	      React.createElement(
+	        'a',
+	        { className: 'song-name' },
+	        ' ',
+	        this.props.name,
+	        ' '
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        this.props.children
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = Song;
 
 /***/ }
 /******/ ]);
